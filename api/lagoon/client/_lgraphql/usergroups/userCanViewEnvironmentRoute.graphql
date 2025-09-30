@@ -1,0 +1,5 @@
+query ($namespace: String!) {
+    userCanViewEnvironmentRoute(kubernetesNamespaceName: $namespace) {
+        kubernetesNamespaceName
+    }
+}
