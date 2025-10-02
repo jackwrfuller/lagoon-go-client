@@ -229,6 +229,18 @@ func (c *Client) UserCanSSHToEnvironment(
 	return c.client.Run(ctx, req, &environment)
 }
 
+// UserCanViewEnvironmentRoute queries the Lagoon API as a user to check if the user has access to
+// view the routes of an environment.
+func (c *Client) UserCanViewEnvironmentRoute(ctx context.Context, namespace string, result *schema.UserCanViewEnvironmentRouteResponse) error {
+	req, err := c.newRequest("_lgraphql/usergroups/userCanViewEnvironmentRoute.graphql",
+		map[string]string{"namespace": namespace})
+	if err != nil {
+		return err
+	}
+
+	return c.client.Run(ctx, req, &result)
+}
+
 // UserBySSHKey queries the Lagoon API to find user by ssh key, and
 // unmarshals the response.
 func (c *Client) UserBySSHKey(
