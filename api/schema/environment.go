@@ -177,3 +177,11 @@ type DeleteEnvironmentServiceInput struct {
 type DeleteEnvironmentService struct {
 	DeleteEnvironmentService string `json:"deleteEnvironmentService"`
 }
+
+// A struct that fits the response from userCanViewEnvironmentRoute.graphql 
+type UserCanViewEnvironmentRouteResponse struct {
+	UserCanViewEnvironmentRoute struct {
+		KubernetesNamespaceName string `json:"kubernetesNamespaceName"`
+	} `json:"userCanViewEnvironmentRoute"`
+}
+

@@ -26,7 +26,7 @@ type UserGroups interface {
 	AllUsers(ctx context.Context, filter schema.AllUsersFilter, users *[]schema.User) error
 	GetUserByEmail(ctx context.Context, email string, user *schema.User) error
 	UserCanSSHToEnvironment(context.Context, string, *schema.Environment) error
-	UserCanViewEnvironmentRoute(context.Context, string) (bool, error)
+	UserCanViewEnvironmentRoute(context.Context, string, *schema.UserCanViewEnvironmentRouteResponse) error
 	UserBySSHKey(ctx context.Context, sshKey string, user *schema.User) error
 	UserBySSHFingerprint(ctx context.Context, fingerprint string, user *schema.User) error
 	GetUserSSHKeysByEmail(ctx context.Context, email string, user *schema.User) error
@@ -123,8 +123,9 @@ func GetUserByEmail(ctx context.Context, email string, ug UserGroups) (*schema.U
 	return &user, ug.GetUserByEmail(ctx, email, &user)
 }
 
-func UserCanViewEnvironmentRoute(ctx context.Context, namespace string, ug UserGroups) (bool, error) {
-	return ug.UserCanViewEnvironmentRoute(ctx, namespace)
+func UserCanViewEnvironmentRoute(ctx context.Context, namespace string, ug UserGroups) (*schema.UserCanViewEnvironmentRouteResponse, error) {
+	resp := schema.UserCanViewEnvironmentRouteResponse{}
+	return &resp, ug.UserCanViewEnvironmentRoute(ctx, namespace, &resp)
 }
 
 func UserCanSSHToEnvironment(ctx context.Context, namespace string, ug UserGroups) (*schema.Environment, error) {
